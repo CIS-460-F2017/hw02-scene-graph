@@ -65,10 +65,12 @@ void Polygon2D::create()
 
 void Polygon2D::setColor(glm::vec3 c)
 {
+    if(!bindCol())
+    {
+        generateCol();
+    }
     std::vector<glm::vec3> colors(m_numVertices);
     std::fill(colors.begin(), colors.end(), c);
-
-    generateCol();
     mp_context->glBindBuffer(GL_ARRAY_BUFFER, m_bufCol);
     mp_context->glBufferData(GL_ARRAY_BUFFER, m_numVertices * sizeof(glm::vec3), colors.data(), GL_STATIC_DRAW);
 }
